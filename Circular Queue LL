@@ -1,0 +1,86 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+struct Node *front = NULL;
+struct Node *rear = NULL;
+
+void enqueue(int value) {
+    struct Node *newNode;
+
+    newNode = (struct Node *)malloc(sizeof(struct Node));
+
+    newNode->data = value;
+    newNode->next = NULL;
+
+    if(front == NULL) {
+        front = rear = newNode;
+        rear->next = front;
+    }
+    else {
+        rear->next = newNode;
+        rear = newNode;
+        rear->next = front;
+    }
+}
+
+void dequeue() {
+    struct Node *temp;
+
+    if(front == NULL) {
+        printf("Queue Underflow\n");
+        return;
+    }
+
+    temp = front;
+
+    if(front == rear) {
+        front = rear = NULL;
+    }
+    else {
+        front = front->next;
+        rear->next = front;
+    }
+
+    printf("%d deleted\n", temp->data);
+    free(temp);
+}
+
+void display() {
+    struct Node *temp;
+
+    if(front == NULL) {
+        printf("Queue Empty\n");
+        return;
+    }
+
+    temp = front;
+
+    printf("Queue Elements: ");
+
+    do {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    } while(temp != front);
+
+    printf("\n");
+}
+
+int main() {
+
+    enqueue(10);
+    enqueue(20);
+    enqueue(30);
+
+    display();
+
+    dequeue();
+
+    display();
+
+    return 0;
+}
