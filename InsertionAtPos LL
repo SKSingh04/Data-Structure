@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+int main() {
+    struct Node *head = NULL, *newNode, *temp;
+    int n, value, pos, i;
+
+    printf("Enter number of nodes: ");
+    scanf("%d", &n);
+
+    for(i = 1; i <= n; i++) {
+        newNode = (struct Node*)malloc(sizeof(struct Node));
+
+        printf("Enter value: ");
+        scanf("%d", &value);
+
+        newNode->data = value;
+        newNode->next = NULL;
+
+        if(head == NULL)
+            head = newNode;
+        else {
+            temp = head;
+            while(temp->next != NULL)
+                temp = temp->next;
+
+            temp->next = newNode;
+        }
+    }
+
+    printf("Enter position: ");
+    scanf("%d", &pos);
+
+    printf("Enter new value: ");
+    scanf("%d", &value);
+
+    newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+
+    temp = head;
+
+    for(i = 1; i < pos - 1; i++)
+        temp = temp->next;
+
+    newNode->next = temp->next;
+    temp->next = newNode;
+
+    printf("Updated List:\n");
+
+    temp = head;
+    while(temp != NULL) {
+        printf("%d -> ", temp->data);
+        temp = temp->next;
+    }
+
+    printf("NULL");
+
+    return 0;
+}
