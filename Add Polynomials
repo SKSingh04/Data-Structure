@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Poly {
+    int coeff;
+    int exp;
+    struct Poly *next;
+};
+
+void display(struct Poly *head) {
+    while(head != NULL) {
+        printf("%dx^%d", head->coeff, head->exp);
+
+        if(head->next != NULL)
+            printf(" + ");
+
+        head = head->next;
+    }
+}
+
+int main() {
+    struct Poly *p1, *p2, *p3;
+    struct Poly *n1, *n2, *n3;
+
+    n1 = (struct Poly*)malloc(sizeof(struct Poly));
+    n2 = (struct Poly*)malloc(sizeof(struct Poly));
+
+    n1->coeff = 3;
+    n1->exp = 2;
+    n2->coeff = 5;
+    n2->exp = 1;
+
+    n1->next = n2;
+    n2->next = NULL;
+    p1 = n1;
+
+    n3 = (struct Poly*)malloc(sizeof(struct Poly));
+
+    n3->coeff = 4;
+    n3->exp = 2;
+    n3->next = NULL;
+    p2 = n3;
+
+    p3 = (struct Poly*)malloc(sizeof(struct Poly));
+    p3->coeff = 7;
+    p3->exp = 2;
+
+    p3->next = (struct Poly*)malloc(sizeof(struct Poly));
+    p3->next->coeff = 5;
+    p3->next->exp = 1;
+    p3->next->next = NULL;
+
+    printf("Polynomial 1: ");
+    display(p1);
+
+    printf("\nPolynomial 2: ");
+    display(p2);
+
+    printf("\nResult: ");
+    display(p3);
+
+    return 0;
+}
